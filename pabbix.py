@@ -16,8 +16,10 @@ class Pabbic():
         zapi = self.__auth()
         resp = self.__request(zapi, 'host.get', params)
         if format == 'text':
+            hosts = []
             for h in resp['result']:
-                print(h['host'])
+                hosts.append(h['host'])
+            print('\n'.join(hosts))
         else:
             print(json.dumps(resp['result']))
 

@@ -11,11 +11,15 @@ class Pabbic():
     def __init__(self):
         pass
 
-    def get_disabled_host(self):
+    def get_disabled_host(self, format='json'):
         params = {'filter': {'status': 1}, 'output': 'extend'}
         zapi = self.__auth()
         resp = self.__request(zapi, 'host.get', params)
-        print(json.dumps(resp['result']))
+        if format == 'text':
+            for h in resp['result']:
+                print(h['host'])
+        else:
+            print(json.dumps(resp['result']))
 
     def __request(self, zapi, method, params):
         resp = zapi.do_request(method, params)
